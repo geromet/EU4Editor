@@ -1,0 +1,116 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ProcessedSource\common\defines\" />
+    <Folder Include="ReProcessedSource\common\advisortypes\" />
+    <Folder Include="ReProcessedSource\common\ages\" />
+    <Folder Include="ReProcessedSource\common\ai_army\" />
+    <Folder Include="ReProcessedSource\common\ai_attitudes\" />
+    <Folder Include="ReProcessedSource\common\ai_personalities\" />
+    <Folder Include="ReProcessedSource\common\ancestor_personalities\" />
+    <Folder Include="ReProcessedSource\common\bookmarks\" />
+    <Folder Include="ReProcessedSource\common\buildings\" />
+    <Folder Include="ReProcessedSource\common\cb_types\" />
+    <Folder Include="ReProcessedSource\common\centers_of_trade\" />
+    <Folder Include="ReProcessedSource\common\church_aspects\" />
+    <Folder Include="ReProcessedSource\common\client_states\" />
+    <Folder Include="ReProcessedSource\common\colonial_regions\" />
+    <Folder Include="ReProcessedSource\common\countries\" />
+    <Folder Include="ReProcessedSource\common\country_colors\" />
+    <Folder Include="ReProcessedSource\common\country_tags\" />
+    <Folder Include="ReProcessedSource\common\cultures\" />
+    <Folder Include="ReProcessedSource\common\custom_country_colors\" />
+    <Folder Include="ReProcessedSource\common\custom_ideas\" />
+    <Folder Include="ReProcessedSource\common\decrees\" />
+    <Folder Include="ReProcessedSource\common\defender_of_faith\" />
+    <Folder Include="ReProcessedSource\common\defines\" />
+    <Folder Include="ReProcessedSource\common\diplomatic_actions\" />
+    <Folder Include="ReProcessedSource\common\disasters\" />
+    <Folder Include="ReProcessedSource\common\dynasty_colors\" />
+    <Folder Include="ReProcessedSource\common\estates\" />
+    <Folder Include="ReProcessedSource\common\estates_preload\" />
+    <Folder Include="ReProcessedSource\common\estate_agendas\" />
+    <Folder Include="ReProcessedSource\common\estate_crown_land\" />
+    <Folder Include="ReProcessedSource\common\estate_privileges\" />
+    <Folder Include="ReProcessedSource\common\event_modifiers\" />
+    <Folder Include="ReProcessedSource\common\factions\" />
+    <Folder Include="ReProcessedSource\common\federation_advancements\" />
+    <Folder Include="ReProcessedSource\common\fervor\" />
+    <Folder Include="ReProcessedSource\common\fetishist_cults\" />
+    <Folder Include="ReProcessedSource\common\flagship_modifications\" />
+    <Folder Include="ReProcessedSource\common\golden_bulls\" />
+    <Folder Include="ReProcessedSource\common\governments\" />
+    <Folder Include="ReProcessedSource\common\government_names\" />
+    <Folder Include="ReProcessedSource\common\government_ranks\" />
+    <Folder Include="ReProcessedSource\common\government_reforms\" />
+    <Folder Include="ReProcessedSource\common\great_projects\" />
+    <Folder Include="ReProcessedSource\common\hegemons\" />
+    <Folder Include="ReProcessedSource\common\holy_orders\" />
+    <Folder Include="ReProcessedSource\common\ideas\" />
+    <Folder Include="ReProcessedSource\common\imperial_incidents\" />
+    <Folder Include="ReProcessedSource\common\imperial_reforms\" />
+    <Folder Include="ReProcessedSource\common\incidents\" />
+    <Folder Include="ReProcessedSource\common\institutions\" />
+    <Folder Include="ReProcessedSource\common\insults\" />
+    <Folder Include="ReProcessedSource\common\isolationism\" />
+    <Folder Include="ReProcessedSource\common\leader_personalities\" />
+    <Folder Include="ReProcessedSource\common\mercenary_companies\" />
+    <Folder Include="ReProcessedSource\common\natives\" />
+    <Folder Include="ReProcessedSource\common\naval_doctrines\" />
+    <Folder Include="ReProcessedSource\common\new_diplomatic_actions\" />
+    <Folder Include="ReProcessedSource\common\on_actions\" />
+    <Folder Include="ReProcessedSource\common\opinion_modifiers\" />
+    <Folder Include="ReProcessedSource\common\parliament_bribes\" />
+    <Folder Include="ReProcessedSource\common\parliament_issues\" />
+    <Folder Include="ReProcessedSource\common\peace_treaties\" />
+    <Folder Include="ReProcessedSource\common\personal_deities\" />
+    <Folder Include="ReProcessedSource\common\policies\" />
+    <Folder Include="ReProcessedSource\common\powerprojection\" />
+    <Folder Include="ReProcessedSource\common\prices\" />
+    <Folder Include="ReProcessedSource\common\professionalism\" />
+    <Folder Include="ReProcessedSource\common\province_names\" />
+    <Folder Include="ReProcessedSource\common\province_triggered_modifiers\" />
+    <Folder Include="ReProcessedSource\common\rebel_types\" />
+    <Folder Include="ReProcessedSource\common\region_colors\" />
+    <Folder Include="ReProcessedSource\common\religions\" />
+    <Folder Include="ReProcessedSource\common\religious_conversions\" />
+    <Folder Include="ReProcessedSource\common\religious_reforms\" />
+    <Folder Include="ReProcessedSource\common\revolt_triggers\" />
+    <Folder Include="ReProcessedSource\common\revolution\" />
+    <Folder Include="ReProcessedSource\common\ruler_personalities\" />
+    <Folder Include="ReProcessedSource\common\scripted_effects\" />
+    <Folder Include="ReProcessedSource\common\scripted_functions\" />
+    <Folder Include="ReProcessedSource\common\scripted_triggers\" />
+    <Folder Include="ReProcessedSource\common\state_edicts\" />
+    <Folder Include="ReProcessedSource\common\static_modifiers\" />
+    <Folder Include="ReProcessedSource\common\subject_types\" />
+    <Folder Include="ReProcessedSource\common\subject_type_upgrades\" />
+    <Folder Include="ReProcessedSource\common\technologies\" />
+    <Folder Include="ReProcessedSource\common\timed_modifiers\" />
+    <Folder Include="ReProcessedSource\common\tradecompany_investments\" />
+    <Folder Include="ReProcessedSource\common\tradegoods\" />
+    <Folder Include="ReProcessedSource\common\tradenodes\" />
+    <Folder Include="ReProcessedSource\common\trade_companies\" />
+    <Folder Include="ReProcessedSource\common\trading_policies\" />
+    <Folder Include="ReProcessedSource\common\triggered_modifiers\" />
+    <Folder Include="ReProcessedSource\common\units\" />
+    <Folder Include="ReProcessedSource\common\units_display\" />
+    <Folder Include="ReProcessedSource\common\wargoal_types\" />
+    <Folder Include="ReProcessedSource\decisions\" />
+    <Folder Include="ReProcessedSource\events\" />
+    <Folder Include="ReProcessedSource\history\advisors\" />
+    <Folder Include="ReProcessedSource\history\countries\" />
+    <Folder Include="ReProcessedSource\history\diplomacy\" />
+    <Folder Include="ReProcessedSource\history\provinces\" />
+    <Folder Include="ReProcessedSource\history\wars\" />
+    <Folder Include="ReProcessedSource\missions\" />
+  </ItemGroup>
+
+</Project>
