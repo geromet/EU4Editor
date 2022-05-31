@@ -19,7 +19,7 @@ internal class Program
             Process.GetOuterEntities(path,this);
         }
         Process.ProcessOuterEntities(this);
-        Process.ProcessInnerEntities(this);
+        //Process.ProcessInnerEntities(this);
         Test.PrintOuterEntities(this);
     } 
 }

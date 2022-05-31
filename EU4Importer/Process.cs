@@ -75,39 +75,6 @@ namespace Eu4Importer
                 }
             }
         }
-        private static void ProcessWithNumbers(string entity)
-        {
-            int[] ints = new int[100];
-            int level = 0;
-            int count = 0;
-            List<Location>[] locations = new List<Location>[100];
-            foreach (char c in entity)
-            {
-                if(c == '{')
-                {
-                    locations[level].Add(new Location{ Start = count });
-                    level++;
-                }
-                if (c == '}')
-                {
-                    //locations[level].
-                    //level--;
-                }
-                count++;
-
-            }
-            
-        }
-        public record NestedLocation
-        {
-            public Location Location;
-            public List<NestedLocation> NestedLocations = new();
-        }
-        public record Location
-        {
-            public int Start;
-            public int End;
-        }
         private static InnerEntity ProcessInnerEntity(string UnprocessedInnerEntity, bool WaitingForValue = false)
         {
             InnerEntity processedInnerEntity = new();
