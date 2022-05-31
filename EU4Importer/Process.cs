@@ -90,8 +90,8 @@ namespace Eu4Importer
                 }
                 if (c == '}')
                 {
-                    locations[level].
-                    level--;
+                    //locations[level].
+                    //level--;
                 }
                 count++;
 
@@ -108,27 +108,28 @@ namespace Eu4Importer
             public int Start;
             public int End;
         }
-        private static InnerEntity ProcessInnerEntity(string UnprocessedInnerEntity)
+        private static InnerEntity ProcessInnerEntity(string UnprocessedInnerEntity, bool WaitingForValue = false)
         {
             InnerEntity processedInnerEntity = new();
             int currentPos = 0;
             int lastPos = 0;
             int brackets = 0;
             bool inBrackets = false;
-            bool waitingForValue = false;
+            bool waitingForValue = WaitingForValue;
             StringBuilder sb = new StringBuilder();
             foreach (char c in UnprocessedInnerEntity)
             {
-                if (c == '{')
+               
+                if (c == '{')//Brackets opening
                 {
                     inBrackets = true;
                     brackets++;
                 }
-                else if (c == '}')
+                else if (c == '}')//Brackets closing
                 {
                     brackets--;
                 }
-                else if (c == '=')
+                else if (c == '=')//Name behind, Value or NestedEntity in front
                 {
                     for (int i = lastPos; i <= currentPos; i++)
                     {
@@ -138,39 +139,37 @@ namespace Eu4Importer
                     sb.Clear();
                     lastPos = currentPos + 1;
                     waitingForValue = true;
+                    if (inBrackets)//In a nested bracket, find InnerEntity
+                    {
+                        processedInnerEntity.InnerEntities.Add(ProcessInnerEntity(UnprocessedInnerEntity.Substring(currentPos + 1), waitingForValue));//Search everything in front
+                    }
                 }
-                else if (c<47 | c > 123)
+                else if (c<47 | c > 123)//Not text
                 {
-                    if (waitingForValue)
+                    if (waitingForValue)//After =
                     {
                         for (int i = lastPos; i <= currentPos; i++)
                         {
-                            if (c > 47 | c < 123)
+                            if (c > 47 & c < 123)//Text
                             {
                                 waitingForValue = false;
                                 sb.Append(UnprocessedInnerEntity[i]); 
                             }
                         }
-                        if (!waitingForValue)
+                        if (!waitingForValue)//Has value
                         {
                             processedInnerEntity.Value = sb.ToString();
                             sb.Clear();
                         }
                     }
                 }
-                if (brackets == 0 && inBrackets)
+                if (brackets == 0 && inBrackets)//Brackets closed
                 {
                     inBrackets = false;
-                    for (int i = lastPos; i <= currentPos; i++)
-                    {
-                        sb.Append(UnprocessedInnerEntity[i]);
-                    }
-                    processedInnerEntity.InnerEntities.Add(ProcessInnerEntity(sb.ToString()));
-                    sb.Clear();
-                    lastPos = currentPos + 1;
+                    currentPos++;
+                    break;
                 }
                 currentPos++;
-
             }
             return processedInnerEntity;
         }
