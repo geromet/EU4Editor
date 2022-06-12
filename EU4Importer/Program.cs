@@ -5,21 +5,30 @@ using System.Text.RegularExpressions;
 
 internal class Program
 {
-    private static Program program = new();
-    public List<GameFile> gameFiles = new();
+    static Parser parser = new();
     public static void Main()
     {
-        program.Run();
+        Run();
     }
-    private void Run()
+    private static void Run()
     {
         string[] paths = Directory.GetFiles("Source", "*.txt", SearchOption.AllDirectories);
         foreach (string path in paths)
         {
-            Process.GetOuterEntities(path,this);
+            Console.WriteLine(File.ReadAllText(path));
+            parser.ParseString(RemoveComments(File.ReadAllText(path)));
         }
-        Process.ProcessOuterEntities(this);
-        //Process.ProcessInnerEntities(this);
-        Test.PrintOuterEntities(this);
+
     } 
+
+    private static string RemoveComments(string input)
+    {
+        string[] strings = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+        StringBuilder output = new StringBuilder();
+        foreach(string s in strings)
+        {
+            output.Append(s.Split('#')[0]);
+        }
+        return output.ToString().Replace("\n", "").Replace("\r", "");
+    }
 }
