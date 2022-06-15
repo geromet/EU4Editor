@@ -8,12 +8,20 @@ namespace Eu4Importer
 {
     internal class Parser
     {
-        public Node[] ParseString(string input)
+        public Node[] ParsePath(string path)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            return ParseContent(ParseInCompleteContent(Lexer.Tokenize(input)));
+            return ParseContent(ParseInCompleteContent(Lexer.Tokenize(File.ReadAllText(path))),path);
         }
 
+        public void Test(string path)
+        {
+            foreach (Token token in ParseInCompleteContent(Lexer.Tokenize(File.ReadAllText(path))))
+            {
+                Console.WriteLine(token.GetType() +" " + token.content + " " + token.value);
+            }
+        }
+       
         private Token[] ParseInCompleteContent(Token[] tokens)
         {
             ContentToken inCompleteToken = new();
@@ -28,6 +36,7 @@ namespace Eu4Importer
                         {
                             ValueToken valueToken = new ValueToken(inCompleteToken.content, tokens[i].content);
                             equals = false;
+                            inCompleteToken = new();
                             output.Add(valueToken);
                         }
                         else
@@ -41,7 +50,9 @@ namespace Eu4Importer
                     case OpenBracketsToken:
                         if (equals)
                         {
-                            output.Add(inCompleteToken);
+                            ContainerToken containerToken = new(inCompleteToken.content);
+                            output.Add(containerToken);
+                            inCompleteToken = new();
                             equals = false;
                         }
                         break;
@@ -49,60 +60,78 @@ namespace Eu4Importer
                         output.Add(tokens[i]);
                         break;
                     default:
+                        if (inCompleteToken.content != null)
+                        {
+                            output.Add(inCompleteToken);
+                        }
                         break;
                 }
             }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Parsed InCompleteContent");
             Console.ForegroundColor = ConsoleColor.Gray;
-            foreach (Token token in output)
-            {
-                Console.WriteLine(token.GetType() + "     " + token.content + "     " + token.value);
-            }
             return output.ToArray();
 
         }
-        private Node[] ParseContent(Token[] tokens)
+        private Node[] ParseContent(Token[] tokens, string path)
         {
+            Node fileNode = new(path);
             Stack<Node> nodes = new();
             Node currentNode = new();
             Node parentNode = new();
             List<Node> output = new();
+            nodes.Push(fileNode);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Parsing Content");
             Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(nodes.Peek().Name);
             for (int i = 0; i < tokens.Length; i++)
             {
+                Console.WriteLine("Received : " + tokens[i].GetType());
                 switch (tokens[i])
                 {
-                    case ContentToken:
+                    case ContainerToken: 
                         currentNode = new();
                         currentNode.Name = tokens[i].content;
                         nodes.Push(currentNode);
-                        Console.WriteLine("ContentToken     " + currentNode.Name);
                         break;
                     case ValueToken:
                         currentNode = nodes.Pop();
                         currentNode.Nodes.Push(new Node(tokens[i].content, tokens[i].value));
                         nodes.Push(currentNode);
-                        Console.WriteLine("ValueToken       " + tokens[i].content + "       " + tokens[i].value);
                         break;
                     case CloseBracketsToken:
-                        currentNode = nodes.Pop();
-                        if (nodes.TryPeek(out _))
+                        if(nodes.TryPeek(out _))
                         {
-                            Console.WriteLine("Close");
-                            parentNode = nodes.Pop();
-                            parentNode.Nodes.Push(currentNode);
-                            nodes.Push(parentNode);
+                            currentNode = nodes.Pop();
+                            if (nodes.TryPeek(out _))
+                            {
+                                parentNode = nodes.Pop();
+                                parentNode.Nodes.Push(currentNode);
+                                nodes.Push(parentNode);
+                            }
+                            else
+                            {
+                                output.Add(currentNode);
+                            }
                         }
-                        else
-                        {
-                            Console.WriteLine("End");
-                            output.Add(currentNode);
-                        }
+                        
                         break;
                     default: break;
+                }
+            }
+            if(nodes.TryPeek(out _))
+            {
+                currentNode = nodes.Pop();
+                if(nodes.TryPeek(out _))
+                {
+                    parentNode = nodes.Pop();
+                    parentNode.Nodes.Push(currentNode);
+                    output.Add(parentNode);
+                }
+                else
+                {
+                    output.Add(currentNode);
                 }
             }
             Console.ForegroundColor = ConsoleColor.Red;
@@ -137,6 +166,7 @@ namespace Eu4Importer
                     Console.Write("\n");
                 }
             }
+            Console.WriteLine("Created Nodes");
             return output.ToArray();
         }
     }

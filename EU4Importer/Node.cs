@@ -27,7 +27,6 @@ namespace Eu4Importer
             Value = value;
             Nodes = nodes;
         }
-        public bool InnerNodes { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
 

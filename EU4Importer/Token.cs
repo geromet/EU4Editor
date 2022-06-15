@@ -12,6 +12,41 @@ namespace Eu4Importer
         public string value;
 
     }
+    internal record NumberToken : Token
+    {
+        public NumberToken(char content)
+        {
+            this.content = content.ToString();
+        }
+    }
+    internal record DoubleQuoteToken : Token
+    {
+
+    }
+    internal record CommentToken : Token
+    {
+
+    }
+    internal record ContentToken : Token
+    {
+        public ContentToken()
+        {
+
+        }
+        public ContentToken(string content)
+        {
+            this.content = content;
+        }
+
+    }
+    internal record SpaceToken : Token
+    {
+
+    }
+    internal record NewLineToken : Token
+    {
+
+    }
     internal record ValueToken : Token
     {
         public ValueToken() { }
@@ -25,10 +60,10 @@ namespace Eu4Importer
             this.value = value;
         }
     }
-    internal record ContentToken : Token
+    internal record ContainerToken : Token
     {
-        public ContentToken() { }
-        public ContentToken(string content)
+        public ContainerToken() { }
+        public ContainerToken(string content)
         {
             this.content = content;
         }

@@ -12,11 +12,17 @@ internal class Program
     }
     private static void Run()
     {
+        int counter = 0;
         string[] paths = Directory.GetFiles("Source", "*.txt", SearchOption.AllDirectories);
         foreach (string path in paths)
         {
-            Console.WriteLine(File.ReadAllText(path));
-            parser.ParseString(RemoveComments(File.ReadAllText(path)));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine("parsing #"+counter+":         " + path +"\n\n\n");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.BackgroundColor = ConsoleColor.Black;
+            parser.ParsePath(path);
+            counter++;
         }
 
     } 
@@ -27,8 +33,8 @@ internal class Program
         StringBuilder output = new StringBuilder();
         foreach(string s in strings)
         {
-            output.Append(s.Split('#')[0]);
+            output.Append(s.Split('#')[0]).Replace("#", "");
         }
-        return output.ToString().Replace("\n", "").Replace("\r", "");
+        return output.ToString().Replace("\n", "").Replace("\r", "").Replace("="," = ");
     }
 }
